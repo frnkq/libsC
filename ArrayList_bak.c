@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ArrayList.h"
-#include "Empleado.h"
+#include "Employee.h"
 
 // funciones privadas
 int resizeUp(ArrayList* this);
@@ -481,16 +481,16 @@ int al_removeDuplicates(ArrayList* this, int (*pFunc)(void*, void*)){
     for(i=0;i<len;i++){
       for(j=1+i;j<len;j++){
         if( pFunc(al_get(this, i), al_get(this, j) ) == 0){
-          if(al_contains(dupsIndex, (void*)(j+1) ) ){
+          if(al_contains(dupsIndex, (int)j)){
             break;
           }
-          al_add(dupsIndex, (void*)(j+1) );
+          al_add(dupsIndex, (int)j);
         }
       }
     }
     if(al_len(dupsIndex)>0){
       for(i=al_len(dupsIndex);i>=0;i--){
-        al_remove(this, (int)(al_get(dupsIndex, i) - 1) ) ;
+        al_remove(this, (int)al_get(dupsIndex, i));
       }
       returnAux = 1;
     }else{
@@ -511,40 +511,12 @@ ArrayList* al_reduce(ArrayList* this, int (*pFunc)(void*)){
     int i;
     int len = al_len(this);
     for(i=0;i<len;i++){
-      if(pFunc(al_get(this, i))==1){
+      if(pFunc(al_get(this, i))==0){
         al_add(returnAux, al_get(this, i));
       }
     }
   }
   return returnAux;
-}
-
-/** \brief Maps all the elements in pElements to a function
- * \param this ArrayList* Pointer to arrayList
- * \param pFunc (*pFunc) Pointer to the function that will be applied to each element
- * \return -2 if the function returned -1 every time
- *          -1 if the function returned -1 at least one time
- *          1 if the function never returned -1
- */
-ArrayList* al_map(ArrayList* this, int (*pFunc)(void*)){
-    int returnAux = -2;
-    if(this != NULL && pFunc != NULL){
-        int i;
-        int pFuncStatus;
-        for(i=0;i<al_len(this);i++){
-            pFunc(al_get(this, i));
-        }
-        if(pFuncStatus == -1){
-            returnAux = -1;
-            if(i==al_len(this) && pFuncStatus==-1){
-                returnAux = -2;
-            }
-        }else{
-            returnAux = 1;
-        }
-    }
-
-    return returnAux;
 }
 
 /** \brief Increment the number of elements in pList in AL_INCREMENT elements.
