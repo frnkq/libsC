@@ -221,7 +221,6 @@ int al_removeDuplicates(ArrayList* this, int (*pFunc)(void*, void*));
  */
 ArrayList* al_reduce(ArrayList* this, int (*pFunc)(void*));
 
-ArrayList* al_map(ArrayList* this, int (*pFunc)(void*));
 
 /** \brief Increment the number of elements in pList in AL_INCREMENT elements.
  * \param pList ArrayList* Pointer to arrayList
