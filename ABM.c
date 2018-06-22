@@ -1,8 +1,9 @@
 #include "ABM.h"
 
 //include inputs
+//include entities
 
-int alta(ArrayList* arrayList){
+void alta(ArrayList* arrayList){
     //clearScreen()
     //Entity* entity = Entity_new();
     printf("\nALTA\n");
@@ -20,7 +21,7 @@ int alta(ArrayList* arrayList){
     }
 }
 
-int modificacionByIndex(ArrayList* arrayList, int i){
+void modificacionByIndex(ArrayList* arrayList, int i){
     //Entity* entity = Entity_new();
     if(arrayList != NULL && entity != NULL){
         char continueEditing = 's';
@@ -93,7 +94,22 @@ int modificacionByIndex(ArrayList* arrayList, int i){
     }
 }
 
-int baja(ArrayList* arrayList);
+void bajaByIndex(ArrayList* arrayList, int i){
+    if(arrayList != NULL){
+        char deleted;
+        do{
+            //clearScreen();
+            printf("\nCONFIRMAR ELIMINACION DEL ELEMENTO s|n: ");
+            //entity_print();
+            printf("\nSI (s) NO(n)");
+            //saveyesNo(&deleted);
+            if(deleted == 's'){
+                //al_remove(arrayList, i);
+                //setisactive == false
+            }
+        }while(deleted != 'n' && deleted != 's');
+    }
+}
 
 
 //escribe lo que esta en memoria, tal cual esta en la memoria (fwrite)
