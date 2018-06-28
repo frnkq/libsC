@@ -235,6 +235,7 @@ int al_map(ArrayList* this, int (*pFunc)(void*));
  * \param pList ArrayList* Pointer to arrayList
  * \return int Return (-1) if Error [pList is NULL pointer or if can't allocate memory]
  *                  - (0) if ok
+ *                  - (1) if ok but not resized
  */
 int resizeUp(ArrayList* this);
 
