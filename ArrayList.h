@@ -221,7 +221,15 @@ int al_removeDuplicates(ArrayList* this, int (*pFunc)(void*, void*));
  */
 ArrayList* al_reduce(ArrayList* this, int (*pFunc)(void*));
 
-ArrayList* al_map(ArrayList* this, int (*pFunc)(void*));
+
+/** \brief Maps all the elements in pElements to a function
+ * \param this ArrayList* Pointer to arrayList
+ * \param pFunc (*pFunc) Pointer to the function that will be applied to each element
+ * \return -2 if the function returned -1 every time
+ *          -1 if the function returned -1 at least one time
+ *          1 if the function never returned -1
+ */
+int al_map(ArrayList* this, int (*pFunc)(void*));
 
 /** \brief Increment the number of elements in pList in AL_INCREMENT elements.
  * \param pList ArrayList* Pointer to arrayList

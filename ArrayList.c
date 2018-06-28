@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ArrayList.h"
-#include "Empleado.h"
 
 // funciones privadas
 int resizeUp(ArrayList* this);
@@ -526,7 +525,7 @@ ArrayList* al_reduce(ArrayList* this, int (*pFunc)(void*)){
  *          -1 if the function returned -1 at least one time
  *          1 if the function never returned -1
  */
-ArrayList* al_map(ArrayList* this, int (*pFunc)(void*)){
+int al_map(ArrayList* this, int (*pFunc)(void*)){
     int returnAux = -2;
     if(this != NULL && pFunc != NULL){
         int i;
