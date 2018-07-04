@@ -121,7 +121,7 @@ void* al_get(ArrayList* this, int index)
 {
     void* returnAux = NULL;
     if(this != NULL){
-        if(index >= 0 && index <= this->size ){
+        if(index >= 0 && index < al_len(this) ){
             returnAux = this->pElements[index];
         }
     }
@@ -142,7 +142,7 @@ int al_contains(ArrayList* this, void* pElement)
     int returnAux = -1;
     if(this != NULL && pElement != NULL){
         int i;
-        for(i=0;i<=this->size;i++){
+        for(i=0;i<al_len(this);i++){
             if(this->pElements[i] == pElement){
                 returnAux = 1;
                 break;
@@ -169,7 +169,7 @@ int al_set(ArrayList* this, int index,void* pElement)
     int returnAux = -1;
 
     if(this != NULL && pElement != NULL){
-        if(index >= 0 && index <= this->size ){
+        if(index >= 0 && index < al_len(this) ){
             this->pElements[index] = pElement;
             returnAux = 0;
         }
@@ -189,7 +189,7 @@ int al_remove(ArrayList* this,int index)
 {
     int returnAux = -1;
     if(this != NULL){
-     if(index >= 0 && index <= this->size ){
+     if(index >= 0 && index < al_len(this) ){
             int i;
             for(i=index; i<(this->size);i++){
                 this->pElements[i] = this->pElements[i+1];
@@ -238,7 +238,7 @@ ArrayList* al_clone(ArrayList* this)
         returnAux->pElements = malloc(sizeof(void *)*(this->size));
         returnAux->size = this->size;
         int i;
-        for(i=0;i<(this->size);i++){
+        for(i=0;i<al_len(this);i++){
             returnAux->pElements[i] = this->pElements[i];
         }
     }
@@ -258,7 +258,7 @@ int al_push(ArrayList* this, int index, void* pElement)
 {
     int returnAux = -1;
     if(this != NULL && pElement != NULL){
-        if(index >0 && index <= al_len(this)){
+        if(index >0 && index < al_len(this)){
             resizeUp(this);
             void* auxElement = al_get(this, index);
             int i;
@@ -286,7 +286,7 @@ int al_indexOf(ArrayList* this, void* pElement)
     int returnAux = -1;
     if(this != NULL && pElement != NULL){
         int i;
-        for(i=0;i<(this->size);i++){
+        for(i=0;i<al_len(this);i++){
             if(this->pElements[i] == pElement){
                 returnAux = i;
                 break;
@@ -331,7 +331,7 @@ void* al_pop(ArrayList* this,int index)
 {
     void* returnAux = NULL;
     if(this != NULL){
-        if(index >= 0 && index <= this->size){
+        if(index >= 0 && index < al_len(this)){
             returnAux = this->pElements[index];
             al_remove(this, index);
         }
@@ -355,7 +355,7 @@ ArrayList* al_subList(ArrayList* this,int from,int to)
 
     ArrayList* auxAl = al_newArrayList();
     if(this != NULL && auxAl != NULL){
-      if(from >= 0 && from <= (this->size) && to >=0 && to <= (this->size)){
+      if(from >= 0 && from < al_len(this) && to >=0 && to < al_len(this)){
         void* auxElements = (void*) malloc(sizeof(void*) * (to-from) );
         if(auxElements != NULL){
           auxAl->pElements = auxElements;
@@ -395,9 +395,9 @@ int al_containsAll(ArrayList* this,ArrayList* this2)
     int returnAux = -1;
 
     if(this != NULL && this2 != NULL){
-        if(this2->size >= this->size){
+        if(al_len(this2) >= al_len(this)){
             int i;
-            for(i=0;i<this2->size;i++){
+            for(i=0;i<al_len(this2);i++){
                 int contains = al_contains(this, this2->pElements[i]);
                 if(contains == -1 ){
                    returnAux = 0;
@@ -409,7 +409,7 @@ int al_containsAll(ArrayList* this,ArrayList* this2)
                 }
             }
 
-            if(i==this2->size){
+            if(i==al_len(this2)){
                 returnAux = 1;
             }
         }
