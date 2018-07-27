@@ -463,33 +463,25 @@ int al_sort(ArrayList* this, int (*pFunc)(void* , void*), int order)
  *                  - (0) if not dupplicate items
  *                  - (1) if removed dupplicate items
  */
-int al_removeDuplicates(ArrayList* this, int (*pFunc)(void*, void*)){
-  int returnAux = -1;
-  int i,j;
-  int len = al_len(this);
-  ArrayList* dupsIndex = al_newArrayList();
-
-  if(this != NULL && pFunc != NULL){
-    for(i=0;i<len;i++){
-      for(j=1+i;j<len;j++){
-        if( pFunc(al_get(this, i), al_get(this, j) ) == 0){
-          if(al_contains(dupsIndex, (void*)(j+1) ) ){
-            break;
-          }
-          al_add(dupsIndex, (void*)(j+1) );
+ArrayList* al_removeDuplicates(ArrayList* this, int (*pFunc)(void*, void*)){
+    ArrayList* returnAux = al_newArrayList();
+    if(this != NULL && pFunc != NULL){
+        int i,j;
+        int flag = 0;
+        int n = al_len(this);
+        for(i=0;i<n;i++){
+            for(j = i-1;j >= 0;j--){
+                if(pFunc(al_get(this, i), al_get(this, j) )==0){
+                    flag = 1;
+                }
+            }
+            if(flag == 0){
+                al_add(returnAux, al_get(this, i));
+            }
+            flag = 0;
         }
-      }
     }
-    if(al_len(dupsIndex)>0){
-      for(i=al_len(dupsIndex);i>=0;i--){
-        al_remove(this, (int)(al_get(dupsIndex, i) - 1) ) ;
-      }
-      returnAux = 1;
-    }else{
-      returnAux = 0;
-    }
-  }
-  return returnAux;
+    return returnAux;
 }
 
 /** \brief Creates a sublist of elements that comply with pFunc

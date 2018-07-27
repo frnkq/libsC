@@ -211,7 +211,7 @@ int al_sort(ArrayList* this, int (*pFunc)(void* ,void*), int order);
  *                  - (0) if not dupplicate items
  *                  - (1) if removed dupplicate items
  */
-int al_removeDuplicates(ArrayList* this, int (*pFunc)(void*, void*));
+ArrayList* al_removeDuplicates(ArrayList* this, int (*pFunc)(void*, void*));
 
 
 /** \brief Creates a sublist of elements that comply with pFunc
